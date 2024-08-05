@@ -1,9 +1,105 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:flutter/material.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:phone_auth_firebase/eshop-project/viewscreen/e-shop_provider.dart';
+// import 'e-shop_home_screen.dart';
+//
+// class EshopRegistrationScreen extends StatefulWidget {
+//   const EshopRegistrationScreen({super.key});
+//
+//   @override
+//   State<EshopRegistrationScreen> createState() => _EshopRegistrationScreenState();
+// }
+//
+// class _EshopRegistrationScreenState extends State<EshopRegistrationScreen> {
+//
+//   TextEditingController nameController = TextEditingController();
+//   TextEditingController emailController = TextEditingController();
+//   TextEditingController passwordController = TextEditingController();
+//   final FirebaseAuth _auth = FirebaseAuth.instance;
+//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//
+//       appBar: AppBar(title: Text("e-Shope",style: TextStyle(color: Colors.indigo,fontSize: 25,fontWeight: FontWeight.bold),),),
+//       body: SingleChildScrollView(
+//         child: Column(
+//           children: [
+//             SizedBox(height: 160,),
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: TextField(
+//                   controller: nameController,
+//                   decoration: InputDecoration(
+//                       labelText: "Name",
+//                       hintText: "Name", border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(20))
+//                   )
+//               ),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: TextField(
+//                   controller: emailController,
+//                   decoration: InputDecoration(
+//                       labelText: "Email",
+//                       hintText: "Email", border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(20))
+//                   )
+//               ),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: TextField(
+//                 cursorColor: Colors.white,
+//                   controller: passwordController,
+//                   decoration: InputDecoration(
+//                       labelText: "Password",
+//                       hintText: "Password", border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(20))
+//                   )
+//               ),
+//             ),
+//             SizedBox(height: 200),
+//             MaterialButton(
+//               shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+//               height: 50,
+//               minWidth: 250,
+//               color: Colors.indigo,
+//               onPressed: (){
+//               AuthProviderServicesEshop().signUp(nameController.text, emailController.text, passwordController.text);
+//               },
+//               child: Text("Signup",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+//             ),
+//             SizedBox(height: 15),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Text("Already have an account? ",style: TextStyle(color: Colors.black),),
+//                 GestureDetector(
+//                   onTap: () {
+//                     Navigator.pop(context);
+//                   },
+//                   child: Text("Login ", style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.bold,fontSize: 20)),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+//   }
+//
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'e-shop_home_screen.dart';
-import 'e-shop_login_screen.dart';
 
 class EshopRegistrationScreen extends StatefulWidget {
   const EshopRegistrationScreen({super.key});
@@ -19,69 +115,97 @@ class _EshopRegistrationScreenState extends State<EshopRegistrationScreen> {
   TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: AppBar(title: Text("e-Shope",style: TextStyle(color: Colors.indigo,fontSize: 25,fontWeight: FontWeight.bold),),),
+      appBar: AppBar(
+        title: const Text(
+          "e-Shope",
+          style: TextStyle(color: Colors.indigo, fontSize: 25, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 160,),
+            const SizedBox(height: 160),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                      labelText: "Name",
-                      hintText: "Name", border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20))
-                  )
+                controller: nameController,
+                decoration: InputDecoration(
+                  labelText: "Name",
+                  hintText: "Name",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                      labelText: "Email",
-                      hintText: "Email", border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20))
-                  )
+                controller: emailController,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  hintText: "Email",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
               ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
                 cursorColor: Colors.white,
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                      labelText: "Password",
-                      hintText: "Password", border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20))
-                  )
+                controller: passwordController,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  hintText: "Password",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
+                ),
+                obscureText: _obscurePassword,
               ),
             ),
-            SizedBox(height: 200),
+            const SizedBox(height: 200),
             MaterialButton(
               shape: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               height: 50,
               minWidth: 250,
               color: Colors.indigo,
               onPressed: _register,
-              child: Text("Signup",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+              child: const Text(
+                "Signup",
+                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Already have an account? ",style: TextStyle(color: Colors.black),),
+                const Text("Already have an account? ", style: TextStyle(color: Colors.black)),
                 GestureDetector(
                   onTap: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Login ", style: TextStyle(color: Colors.indigo,fontWeight: FontWeight.bold,fontSize: 20)),
+                  child: const Text(
+                    "Login ",
+                    style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
                 ),
               ],
             ),
@@ -165,3 +289,4 @@ class _EshopRegistrationScreenState extends State<EshopRegistrationScreen> {
     }
   }
 }
+

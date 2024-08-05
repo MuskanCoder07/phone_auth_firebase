@@ -118,7 +118,7 @@ class _NewsSearchViewState extends State<NewsSearchView> {
                   var article = value.newsSearchModel!.articles![index];
                   return InkWell(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => NewsDetailsScreen(article: article),

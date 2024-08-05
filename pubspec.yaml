@@ -60,6 +60,8 @@ dependencies:
   provider:
   like_button:
   cached_network_image: ^3.3.1
+  connectivity_plus: ^4.0.0
+  sqflite: any
 
 dev_dependencies:
   flutter_test:

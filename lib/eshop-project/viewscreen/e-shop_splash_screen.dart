@@ -25,7 +25,8 @@ class _EshopSplashScreenState extends State<EshopSplashScreen> {
     return const Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Image(image: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQffViLtGzjqBEobpE8mKm7c9_fx3on-q1P5Q&s"))
+        child: Image(image: NetworkImage(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQokFEJDX-y0IMgn1hZywgQREANO0MPUkCOuv_oEqCML43W_LiMFqEcLKo5TfewYlxs4BU&usqp=CAU"))
       ),
     );
   }
